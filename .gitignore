@@ -1,3 +1,19 @@
 
 /generated/prisma
 node_modules/
+.env
+dist/
+*.log
+*.tsbuildinfo
+coverage/
+.vscode/
+.DS_Store
+*.tgz
+*.swp
+*.swotch
+*.bak
+*.tmp
+*.temp
+*.pid
+*.seed
+*.pid.lock  
