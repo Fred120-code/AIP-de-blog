@@ -7,11 +7,11 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 
   if (!token) return res.status(401).json({ message: "Accès non autorisé." });
 
-  jwt.verify(token, process.env.JWT_SECRET as string, (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET as string, (err, decoded) => {
     if (err) return res.status(403).json({ message: "Token invalide." });
 
     // Injecter l'ID de l'utilisateur dans la requête
-    (req as any).userId = (user as any).id;
+    (req as any).user = decoded;
     next();
   });
 };

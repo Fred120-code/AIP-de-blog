@@ -1,7 +1,7 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import {PrismaClient} from "../generated/prisma";
+import {PrismaClient, Role} from "../generated/prisma";
 import { when } from "joi";
 
 const prisma = new PrismaClient();
@@ -74,8 +74,8 @@ export const login = async (req:Request, res:Response) => {
         }
 
         // Création du token JWT
-        const token = jwt.sign({ id:user.id}, JWT_SECRET,{
-            expiresIn: "1h"
+        const token = jwt.sign({ id:user.id, role:user.role},JWT_SECRET,{
+            expiresIn: "2h"
         })
 
         res.status(200).json({
@@ -112,7 +112,3 @@ export const getProfile = async (req:Request, res:Response) => {
         return res.status(500).json({ msg: "Erreur interne du serveur" });
     }
 }
-
-/**
- * eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4N2ZiYjJhOTk3OWI4Y2IwNmE0MzMwMCIsImVtYWlsIjoiam9yYW5AZ21haWwuY29tIiwiaWF0IjoxNzUzMjAxNTI3LCJleHAiOjE3NTMyMDUxMjd9.UWzFQkaMd2NCqB6zJmElCQc5xV721vF9sE1IsHuj2JM
- */
